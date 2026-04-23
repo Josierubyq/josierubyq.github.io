@@ -1,681 +1,792 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Zhang Qian (Josie) — Academic Homepage</title>
+  <title>Zhang Qian (Josie)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,opsz,wght@0,8..144,400;0,8..144,500;0,8..144,600;1,8..144,400;1,8..144,500&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet" />
+
   <style>
+    /* ══ TOKENS ══ */
     :root {
-      --ink: #1a1612;
-      --paper: #f7f4ef;
-      --warm-mid: #8c7b6b;
-      --accent: #c85a2a;
-      --accent-soft: #e8d5c8;
-      --line: rgba(26,22,18,0.12);
-      --serif: 'EB Garamond', Georgia, serif;
-      --mono: 'DM Mono', monospace;
-      --sans: 'Outfit', sans-serif;
+      --bg:          #f7f4ef;
+      --bg-card:     #f0ece4;
+      --text:        #1a1612;
+      --text-muted:  #8c7b6b;
+      --border:      rgba(26,22,18,0.13);
+      --accent:      #c85a2a;
+      --accent-soft: #edddd3;
+      --link:        #b04d22;
+      --link-hover:  #c85a2a;
+      --nav-bg:      #f7f4ef;
+      --nav-border:  rgba(26,22,18,0.13);
+      --serif:       'EB Garamond', Georgia, serif;
+      --mono:        'DM Mono', monospace;
+      --sans:        'Outfit', sans-serif;
+      --radius:      4px;
+      --shadow:      0 2px 12px rgba(26,22,18,0.07);
+    }
+    [data-theme="dark"] {
+      --bg:          #1c1814;
+      --bg-card:     #252018;
+      --text:        #e8e0d5;
+      --text-muted:  #9a8a78;
+      --border:      rgba(232,224,213,0.12);
+      --accent:      #d4703a;
+      --accent-soft: #3a2518;
+      --link:        #d4703a;
+      --link-hover:  #e88050;
+      --nav-bg:      #1c1814;
+      --nav-border:  rgba(232,224,213,0.12);
+      --shadow:      0 2px 16px rgba(0,0,0,0.35);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; font-size: 15px; }
 
     body {
-      background: var(--paper);
-      color: var(--ink);
       font-family: var(--serif);
-      font-size: 18px;
-      line-height: 1.75;
-      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.78;
+      transition: background 0.3s, color 0.3s;
     }
 
-    /* ── GRAIN OVERLAY ── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 9999;
-      opacity: 0.6;
-    }
+    a { color: var(--link); text-decoration: none; transition: color 0.15s; }
+    a:hover { color: var(--link-hover); }
+    p { margin-bottom: 0.85em; }
+    p:last-child { margin-bottom: 0; }
+    strong { font-weight: 600; }
 
-    /* ── LAYOUT ── */
-    .wrapper {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
-
-    /* ── NAV ── */
-    nav {
+    /* ══ NAVBAR ══ */
+    nav#navbar {
       position: sticky;
       top: 0;
-      z-index: 100;
-      background: rgba(247,244,239,0.88);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--line);
-      padding: 0.85rem 0;
+      z-index: 200;
+      background: var(--nav-bg);
+      border-bottom: 1px solid var(--nav-border);
+      height: 52px;
+      display: flex;
+      align-items: center;
+      backdrop-filter: blur(8px);
+      transition: background 0.3s;
     }
-
-    nav .inner {
-      max-width: 860px;
+    .nav-inner {
+      max-width: 960px;
       margin: 0 auto;
-      padding: 0 2rem;
+      padding: 0 1.5rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 2rem;
+      width: 100%;
     }
-
-    nav .logo {
+    .nav-brand {
       font-family: var(--mono);
-      font-size: 0.8rem;
-      color: var(--warm-mid);
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      text-decoration: none;
-    }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 2rem;
-    }
-
-    nav ul a {
-      font-family: var(--sans);
-      font-size: 0.8rem;
-      font-weight: 400;
-      color: var(--warm-mid);
-      text-decoration: none;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      transition: color 0.2s;
-    }
-    nav ul a:hover { color: var(--accent); }
-
-    /* ── HERO ── */
-    #hero {
-      padding: 7rem 0 4rem;
-      border-bottom: 1px solid var(--line);
-      position: relative;
-      overflow: hidden;
-    }
-
-    #hero .year-label {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--warm-mid);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 2rem;
-      opacity: 0;
-      animation: fadeUp 0.6s ease forwards 0.1s;
-    }
-
-    #hero h1 {
-      font-family: var(--serif);
-      font-size: clamp(2.8rem, 6vw, 4.5rem);
-      font-weight: 500;
-      line-height: 1.15;
-      letter-spacing: -0.01em;
-      margin-bottom: 0.3rem;
-      opacity: 0;
-      animation: fadeUp 0.6s ease forwards 0.2s;
-    }
-
-    #hero h1 em {
-      font-style: italic;
-      color: var(--accent);
-    }
-
-    #hero .tagline {
-      font-family: var(--sans);
-      font-size: 0.9rem;
-      font-weight: 300;
-      color: var(--warm-mid);
+      font-size: 0.78rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      margin-bottom: 2.5rem;
-      opacity: 0;
-      animation: fadeUp 0.6s ease forwards 0.3s;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.15s;
     }
+    .nav-brand:hover { color: var(--accent); }
 
-    #hero .bio {
-      max-width: 620px;
-      font-size: 1.05rem;
-      line-height: 1.85;
-      color: #3a3028;
-      opacity: 0;
-      animation: fadeUp 0.6s ease forwards 0.4s;
-    }
-
-    #hero .bio strong {
-      font-weight: 600;
-    }
-
-    #hero .affiliation {
-      margin-top: 2.2rem;
+    .nav-links {
       display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-      opacity: 0;
-      animation: fadeUp 0.6s ease forwards 0.5s;
+      align-items: center;
+      gap: 0;
+      list-style: none;
     }
-
-    #hero .affil-line {
-      width: 2px;
-      height: 48px;
-      background: var(--accent);
-      flex-shrink: 0;
-      margin-top: 4px;
-    }
-
-    #hero .affil-text {
+    .nav-links a {
       font-family: var(--sans);
-      font-size: 0.88rem;
-      font-weight: 300;
-      line-height: 1.6;
-      color: var(--warm-mid);
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      padding: 0.3rem 0.8rem;
+      border-radius: var(--radius);
+      transition: color 0.15s, background 0.15s;
+      text-decoration: none;
+    }
+    .nav-links a:hover {
+      color: var(--accent);
+      background: var(--accent-soft);
     }
 
-    #hero .affil-text strong {
-      display: block;
-      font-weight: 500;
-      color: var(--ink);
-    }
-
-    /* large decorative char */
-    #hero .deco {
-      position: absolute;
-      right: -20px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-family: var(--serif);
-      font-size: 28rem;
-      font-style: italic;
-      color: rgba(200,90,42,0.04);
-      pointer-events: none;
-      user-select: none;
+    #theme-toggle {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 0.28rem 0.55rem;
+      border-radius: var(--radius);
+      font-size: 0.8rem;
+      margin-left: 0.6rem;
+      transition: border-color 0.2s, color 0.2s;
       line-height: 1;
     }
+    #theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
 
-    /* ── SECTION ── */
-    section {
-      padding: 4.5rem 0;
-      border-bottom: 1px solid var(--line);
+    /* ══ PAGE ══ */
+    .page {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 3.5rem 1.5rem 5rem;
     }
+
+    /* ══ PROFILE ══ */
+    .profile-section {
+      display: grid;
+      grid-template-columns: 1fr 190px;
+      gap: 3rem;
+      align-items: start;
+      margin-bottom: 4rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .profile-bio h1 {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 500;
+      line-height: 1.2;
+      margin-bottom: 1.2rem;
+      letter-spacing: -0.01em;
+    }
+    .profile-bio h1 em { font-style: italic; color: var(--accent); }
+    .profile-bio p { font-size: 0.97rem; color: var(--text); }
+
+    .profile-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      text-align: center;
+      padding-top: 0.5rem;
+    }
+    .avatar-wrap {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid var(--border);
+      background: linear-gradient(145deg, #d4bfb0, #b09080);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow);
+      flex-shrink: 0;
+    }
+    .avatar-wrap svg { width: 76px; height: 76px; opacity: 0.4; }
+
+    .profile-name {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      font-weight: 500;
+      line-height: 1.3;
+    }
+    .profile-sub {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      font-weight: 300;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-top: 0.1rem;
+    }
+    .profile-sub a { color: var(--text-muted); }
+    .profile-sub a:hover { color: var(--accent); }
+
+    .social-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.35rem;
+      margin-top: 0.2rem;
+    }
+    .social-links a {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.03em;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 0.2em 0.7em;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+    }
+    .social-links a:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    /* ══ SECTION ══ */
+    section { margin-bottom: 3.5rem; }
 
     .sec-label {
       font-family: var(--mono);
-      font-size: 0.68rem;
+      font-size: 0.65rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--accent);
-      margin-bottom: 2rem;
+      margin-bottom: 1.4rem;
       display: flex;
       align-items: center;
       gap: 0.8rem;
     }
-
     .sec-label::after {
       content: '';
       display: block;
-      flex: 1;
-      max-width: 60px;
+      width: 40px;
       height: 1px;
       background: var(--accent);
       opacity: 0.4;
     }
 
-    h2 {
-      font-family: var(--serif);
-      font-size: clamp(1.6rem, 3vw, 2.2rem);
-      font-weight: 500;
-      line-height: 1.25;
-      margin-bottom: 1.8rem;
-      letter-spacing: -0.01em;
+    /* ══ NEWS ══ */
+    .news-table { width: 100%; border-collapse: collapse; }
+    .news-table tr { border-bottom: 1px solid var(--border); }
+    .news-table tr:last-child { border-bottom: none; }
+    .news-table td { padding: 0.55rem 0.3rem; font-size: 0.88rem; vertical-align: top; font-family: var(--sans); font-weight: 300; }
+    .news-date {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      width: 80px;
+      padding-right: 1.2rem;
+      padding-top: 0.65rem;
     }
 
-    /* ── ABOUT / INTERESTS ── */
-    #interests .grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.2rem;
-      margin-top: 0.5rem;
-    }
-
-    .interest-card {
-      border: 1px solid var(--line);
-      padding: 1.4rem 1.6rem;
-      position: relative;
-      transition: border-color 0.25s, background 0.25s;
-    }
-
-    .interest-card::before {
-      content: '';
-      position: absolute;
-      top: -1px; left: -1px;
-      width: 28px;
-      height: 2px;
-      background: var(--accent);
-      transition: width 0.3s ease;
-    }
-
-    .interest-card:hover { background: rgba(200,90,42,0.03); border-color: rgba(200,90,42,0.3); }
-    .interest-card:hover::before { width: 60px; }
-
-    .interest-card h3 {
-      font-family: var(--sans);
-      font-size: 0.82rem;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      margin-bottom: 0.4rem;
-      color: var(--ink);
-    }
-
-    .interest-card p {
-      font-size: 0.88rem;
-      color: var(--warm-mid);
-      line-height: 1.55;
-      font-family: var(--sans);
-      font-weight: 300;
-    }
-
-    /* ── PUBLICATIONS ── */
+    /* ══ PUBLICATIONS ══ */
+    .pub-list { display: flex; flex-direction: column; }
     .pub-item {
       display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 0 2rem;
-      padding: 2rem 0;
-      border-top: 1px solid var(--line);
+      grid-template-columns: 210px 1fr;
+      gap: 1.5rem;
+      padding: 1.6rem 0;
+      border-bottom: 1px solid var(--border);
     }
+    .pub-item:first-child { padding-top: 0; }
+    .pub-item:last-child { border-bottom: none; }
 
-    .pub-item:first-child { border-top: none; padding-top: 0; }
-
-    .pub-year {
-      font-family: var(--mono);
-      font-size: 0.75rem;
-      color: var(--warm-mid);
-      padding-top: 0.2em;
-      width: 3rem;
+    /* highlighted = under review */
+    .pub-item.highlighted {
+      background: var(--accent-soft);
+      border-radius: var(--radius);
+      padding: 1.4rem 1.2rem;
+      margin: 0 -1.2rem;
+      border-bottom: none;
+      border-top: none;
     }
+    .pub-item.highlighted + .pub-item { border-top: none; }
 
-    .pub-body h3 {
-      font-family: var(--serif);
-      font-size: 1.08rem;
-      font-weight: 500;
-      line-height: 1.45;
-      margin-bottom: 0.5rem;
-    }
-
-    .pub-body .venue {
+    .pub-thumb {
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--bg-card);
+      aspect-ratio: 16/9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-family: var(--mono);
       font-size: 0.72rem;
-      color: var(--accent);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      border: 1px solid var(--border);
+      flex-shrink: 0;
     }
 
-    .venue-badge {
-      background: var(--accent-soft);
-      color: var(--accent);
-      padding: 0.15em 0.6em;
+    .pub-content { display: flex; flex-direction: column; gap: 0.35rem; }
+    .pub-title { font-family: var(--serif); font-size: 1.02rem; font-weight: 500; line-height: 1.45; }
+    .pub-authors { font-family: var(--sans); font-size: 0.82rem; font-weight: 300; color: var(--text-muted); }
+    .pub-authors strong { font-weight: 500; color: var(--text); }
+    .pub-venue { font-family: var(--mono); font-size: 0.72rem; color: var(--accent); letter-spacing: 0.06em; }
+
+    .pub-badges { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.15rem; }
+    .badge {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.05em;
+      padding: 0.18em 0.65em;
+      border-radius: 2px;
+      font-weight: 400;
+    }
+    .badge-review  { background: #d4a04088; color: #7a4a00; border: 1px solid #d4a040; }
+    .badge-inprint { background: var(--accent-soft); color: var(--accent); border: 1px solid var(--accent); }
+    [data-theme="dark"] .badge-review { color: #f0c060; }
+
+    .pub-links { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.2rem; }
+    .pub-links a {
+      font-family: var(--mono);
       font-size: 0.68rem;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.04em;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 0.12em 0.55em;
+      color: var(--text-muted);
+      transition: all 0.15s;
     }
+    .pub-links a:hover { border-color: var(--accent); color: var(--accent); }
 
-    /* ── AWARDS ── */
-    #awards .awards-list {
-      list-style: none;
+    /* ══ PROJECTS ══ */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
+      gap: 1.1rem;
+    }
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
       display: flex;
       flex-direction: column;
-      gap: 0;
+      transition: box-shadow 0.2s, transform 0.2s;
+      position: relative;
     }
-
-    #awards .award-item {
-      display: grid;
-      grid-template-columns: 5rem 1fr;
-      gap: 0 1.5rem;
-      padding: 1.2rem 0;
-      border-top: 1px solid var(--line);
-      align-items: baseline;
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.25s ease;
     }
+    .project-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+    .project-card:hover::before { transform: scaleX(1); }
 
-    #awards .award-item:last-child { border-bottom: 1px solid var(--line); }
-
-    .award-year {
+    .project-thumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-family: var(--mono);
       font-size: 0.72rem;
-      color: var(--warm-mid);
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
     }
-
-    .award-name {
-      font-size: 0.98rem;
-      line-height: 1.5;
-    }
-
-    .award-name em {
-      display: block;
-      font-family: var(--sans);
-      font-size: 0.78rem;
-      font-style: normal;
-      font-weight: 300;
-      color: var(--warm-mid);
-      margin-top: 0.1rem;
-    }
-
-    /* ── SKILLS ── */
-    #skills .skill-group {
-      margin-bottom: 2.2rem;
-    }
-
-    .skill-group-label {
+    .project-body { padding: 1rem; flex: 1; display: flex; flex-direction: column; gap: 0.35rem; }
+    .project-title { font-family: var(--serif); font-weight: 500; font-size: 0.97rem; line-height: 1.4; }
+    .project-desc { font-family: var(--sans); font-size: 0.8rem; font-weight: 300; color: var(--text-muted); line-height: 1.55; flex: 1; }
+    .project-tech { font-family: var(--mono); font-size: 0.68rem; color: var(--text-muted); opacity: 0.8; }
+    .project-links { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.5rem; }
+    .project-links a {
       font-family: var(--mono);
       font-size: 0.68rem;
-      color: var(--warm-mid);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 0.85rem;
+      letter-spacing: 0.04em;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 0.12em 0.5em;
+      color: var(--text-muted);
+      transition: all 0.15s;
     }
+    .project-links a:hover { border-color: var(--accent); color: var(--accent); }
 
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
+    /* ══ AWARDS ══ */
+    .award-list { display: flex; flex-direction: column; }
+    .award-item {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 0 1rem;
+      padding: 0.7rem 0;
+      border-bottom: 1px solid var(--border);
+      align-items: baseline;
     }
+    .award-item:last-child { border-bottom: none; }
+    .award-year { font-family: var(--mono); font-size: 0.7rem; color: var(--text-muted); }
+    .award-name { font-family: var(--serif); font-size: 0.95rem; font-weight: 500; line-height: 1.4; }
+    .award-sub { font-family: var(--sans); font-size: 0.78rem; font-weight: 300; color: var(--text-muted); margin-top: 0.05rem; }
 
-    .tag {
+    /* ══ SKILLS ══ */
+    .skills-grid { display: flex; flex-direction: column; gap: 0.8rem; }
+    .skill-row { display: grid; grid-template-columns: 100px 1fr; gap: 0 1rem; align-items: baseline; }
+    .skill-label { font-family: var(--mono); font-size: 0.68rem; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .skill-tag {
       font-family: var(--mono);
-      font-size: 0.75rem;
-      color: var(--ink);
-      border: 1px solid var(--line);
-      padding: 0.3em 0.85em;
-      transition: background 0.2s, border-color 0.2s, color 0.2s;
-      cursor: default;
+      font-size: 0.72rem;
+      color: var(--text);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 0.15em 0.6em;
+      transition: border-color 0.15s, color 0.15s;
     }
+    .skill-tag:hover { border-color: var(--accent); color: var(--accent); }
 
-    .tag:hover {
-      background: var(--ink);
-      color: var(--paper);
-      border-color: var(--ink);
-    }
-
-    /* ── BEYOND ── */
-    #beyond .quote-block {
-      border-left: 2px solid var(--accent);
-      padding-left: 1.8rem;
-      font-style: italic;
-      font-size: 1.1rem;
-      line-height: 1.8;
-      color: #4a3e34;
-      max-width: 560px;
-    }
-
-    #beyond .bilibili-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-top: 2rem;
-      font-family: var(--sans);
-      font-size: 0.82rem;
-      font-weight: 400;
-      color: var(--accent);
-      text-decoration: none;
-      border-bottom: 1px solid transparent;
-      padding-bottom: 1px;
-      transition: border-color 0.2s;
-    }
-    #beyond .bilibili-link:hover { border-color: var(--accent); }
-
-    /* ── FOOTER ── */
+    /* ══ FOOTER ══ */
     footer {
-      padding: 3rem 0;
+      border-top: 1px solid var(--border);
+      padding: 2rem 0 1rem;
+      margin-top: 1rem;
       font-family: var(--mono);
       font-size: 0.68rem;
-      color: var(--warm-mid);
-      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
       display: flex;
       justify-content: space-between;
-      align-items: center;
       flex-wrap: wrap;
-      gap: 1rem;
+      gap: 0.5rem;
     }
+    footer a { color: var(--text-muted); }
+    footer a:hover { color: var(--accent); }
 
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(18px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
+    /* ══ REVEAL ══ */
     .reveal {
       opacity: 0;
-      transform: translateY(18px);
-      transition: opacity 0.55s ease, transform 0.55s ease;
+      transform: translateY(14px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
     }
     .reveal.visible { opacity: 1; transform: none; }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 640px) {
-      #interests .grid { grid-template-columns: 1fr; }
-      .pub-item { grid-template-columns: 1fr; gap: 0.3rem; }
-      #awards .award-item { grid-template-columns: 1fr; gap: 0; }
-      .award-year { margin-bottom: 0.2rem; }
-      nav ul { gap: 1.2rem; }
-      #hero .deco { display: none; }
+    /* ══ RESPONSIVE ══ */
+    @media (max-width: 680px) {
+      .profile-section { grid-template-columns: 1fr; }
+      .profile-card { order: -1; }
+      .pub-item { grid-template-columns: 1fr; }
+      .award-item { grid-template-columns: 75px 1fr; }
+      .nav-links li:nth-child(n+4) { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav>
-    <div class="inner">
-      <a class="logo" href="#">Zhang Qian</a>
-      <ul>
-        <li><a href="#interests">Research</a></li>
-        <li><a href="#publications">Papers</a></li>
-        <li><a href="#awards">Awards</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#beyond">Beyond</a></li>
-      </ul>
-    </div>
-  </nav>
+<!-- ══ NAVBAR ══ -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a class="nav-brand" href="#">Zhang Qian</a>
+    <ul class="nav-links">
+      <li><a href="#about">about</a></li>
+      <li><a href="#news">news</a></li>
+      <li><a href="#publications">publications</a></li>
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#awards">awards</a></li>
+      <li><a href="#cv">cv</a></li>
+    </ul>
+    <button id="theme-toggle" aria-label="toggle theme">☀︎</button>
+  </div>
+</nav>
 
-  <!-- HERO -->
-  <section id="hero">
-    <div class="wrapper" style="position:relative;">
-      <div class="deco">J</div>
-      <p class="year-label">ML · Multimodal · Human-Inspired AI</p>
+<!-- ══ PAGE ══ -->
+<div class="page">
+
+  <!-- PROFILE -->
+  <div class="profile-section" id="about">
+
+    <!-- Left: bio -->
+    <div class="profile-bio">
       <h1>Zhang Qian<br><em>Josie</em></h1>
-      <p class="tagline">Machine Learning &nbsp;·&nbsp; Multimodal Large Models &nbsp;·&nbsp; Human-Inspired AI Understanding</p>
-      <p class="bio">
+      <p>
+        I am a first-year master's student at the
+        <a href="https://www.ut-vision.org/">Computer Vision Group</a>,
+        <a href="https://www.u-tokyo.ac.jp/en/">The University of Tokyo</a>,
+        advised by <a href="https://sites.google.com/ut-vision.org/ysato/home">Prof. Yoichi Sato</a>.
+        I received my B.Eng. in Computer Science from
+        <a href="https://www.ritsumei.ac.jp/eng/">Ritsumeikan University</a> (Osaka) in March 2026,
+        where I was also a visiting student at <a href="https://www.cuhk.edu.cn/en">CUHK-Shenzhen</a>
+        working on <strong>multi-agent prompt optimization</strong>.
+      </p>
+      <p>
         I have always been curious about a simple question:
         <em>Why do humans understand so well, yet machines — despite their scale — still don't?</em>
-        My research explores how ML systems can develop more <strong>structured, interpretable, and multimodal</strong>
-        forms of understanding, and how to design model and agent architectures that better approximate
-        how humans organize information.
+        My research explores how ML systems can develop more
+        <strong>structured, interpretable, and multimodal</strong> forms of understanding,
+        and how to design model and agent architectures that better reflect how humans organize knowledge.
       </p>
-      <div class="affiliation">
-        <div class="affil-line"></div>
-        <div class="affil-text">
-          <strong>Final-year CS Student — Ritsumeikan University, Osaka</strong>
-          Visiting student at <strong>CUHK-Shenzhen</strong> &nbsp;·&nbsp; Multiagent Prompt Optimization
-        </div>
-      </div>
+      <p>
+        My interests span <strong>multimodal video understanding</strong>,
+        <strong>structured representations</strong>, <strong>LLM agents</strong>,
+        and <strong>prompt optimization</strong>.
+        Outside research, I write piano pieces, take photographs, and travel.
+        Creative archive on <a href="https://bilibili.com" target="_blank">Bilibili</a>.
+      </p>
     </div>
-  </section>
 
-  <!-- RESEARCH INTERESTS -->
-  <section id="interests">
-    <div class="wrapper">
-      <div class="sec-label">Research Interests</div>
-      <div class="grid reveal">
-        <div class="interest-card">
-          <h3>Multimodal Video Understanding</h3>
-          <p>Structured video representations, hierarchical temporal modeling, and explainable video cognition.</p>
-        </div>
-        <div class="interest-card">
-          <h3>LLM Agents & Prompt Optimization</h3>
-          <p>Multi-agent architectures, prompt structure optimization, and emergent coordination behavior.</p>
-        </div>
-        <div class="interest-card">
-          <h3>Representation Learning</h3>
-          <p>Disentangled, causal, and interpretable feature spaces that go beyond surface-level correlations.</p>
-        </div>
-        <div class="interest-card">
-          <h3>Multimodal Models</h3>
-          <p>Cross-modal alignment, grounding, and reasoning across vision, language, and beyond.</p>
+    <!-- Right: profile card -->
+    <div class="profile-card">
+      <div class="avatar-wrap">
+        <!-- Replace SVG with:
+             <img src="images/josie.jpg" alt="Zhang Qian"
+                  style="width:100%;height:100%;object-fit:cover"> -->
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="white">
+          <circle cx="50" cy="36" r="22"/>
+          <ellipse cx="50" cy="94" rx="38" ry="32"/>
+        </svg>
+      </div>
+      <div>
+        <div class="profile-name">Zhang Qian</div>
+        <div class="profile-sub">
+          M1 · <a href="https://www.ut-vision.org/">UTokyo CV Lab</a><br>
+          Adv: <a href="https://sites.google.com/ut-vision.org/ysato/home">Prof. Yoichi Sato</a><br>
+          Tokyo, Japan
         </div>
       </div>
+      <div class="social-links">
+        <a href="mailto:your-email@g.ecc.u-tokyo.ac.jp">email</a>
+        <a href="#">scholar</a>
+        <a href="#">github</a>
+        <a href="#">cv</a>
+        <a href="https://bilibili.com" target="_blank">bilibili</a>
+      </div>
     </div>
+  </div>
+
+  <!-- NEWS -->
+  <section id="news">
+    <div class="sec-label">News</div>
+    <table class="news-table reveal">
+      <tbody>
+        <tr>
+          <td class="news-date">Apr 2026</td>
+          <td>Joined <a href="https://www.ut-vision.org/">Computer Vision Group</a> at UTokyo as a Master's student, advised by <a href="https://sites.google.com/ut-vision.org/ysato/home">Prof. Yoichi Sato</a>. 🎉</td>
+        </tr>
+        <tr>
+          <td class="news-date">2026</td>
+          <td>Paper submitted to <strong>ICML 2026</strong>. Results pending. 🤞</td>
+        </tr>
+        <tr>
+          <td class="news-date">Mar 2026</td>
+          <td>Graduated from Ritsumeikan University with a B.Eng. in Computer Science.</td>
+        </tr>
+        <tr>
+          <td class="news-date">2025</td>
+          <td>Awarded the <strong>Athlete and Creator Development Scholarship</strong>, Ritsumeikan University.</td>
+        </tr>
+        <tr>
+          <td class="news-date">2025</td>
+          <td>Paper <em>CnPBERT</em> accepted at <strong>BDEE 2025</strong>.</td>
+        </tr>
+        <tr>
+          <td class="news-date">2025</td>
+          <td>Received <strong>Saionji Memorial Scholarship</strong> (Academically Outstanding).</td>
+        </tr>
+        <tr>
+          <td class="news-date">2024</td>
+          <td>Selected for <strong>Fuji Seal Foundation Scholarship</strong> (2024–2026) — one of seven international recipients.</td>
+        </tr>
+        <tr>
+          <td class="news-date">2023</td>
+          <td>Received <strong>Saionji Memorial Scholarship</strong> (Academically Outstanding).</td>
+        </tr>
+        <tr>
+          <td class="news-date">2022</td>
+          <td>Enrolled at Ritsumeikan University with a <strong>Full Tuition Waiver</strong>.</td>
+        </tr>
+      </tbody>
+    </table>
   </section>
 
   <!-- PUBLICATIONS -->
   <section id="publications">
-    <div class="wrapper">
-      <div class="sec-label">Publications</div>
-      <div class="reveal">
-        <div class="pub-item">
-          <div class="pub-year">2025</div>
-          <div class="pub-body">
-            <h3>CnPBERT: Facilitating Chinese Online Petition Classification through Domain-Specific Pretraining</h3>
-            <span class="venue">
-              <span class="venue-badge">BDEE 2025</span>
-              In print
-            </span>
+    <div class="sec-label">Publications</div>
+    <div class="pub-list">
+
+      <!-- ICML 2026 — highlighted -->
+      <div class="pub-item highlighted reveal">
+        <div class="pub-thumb" style="background:linear-gradient(135deg,var(--accent-soft),var(--bg-card));">
+          <!-- <img src="images/icml2026.png" style="width:100%;height:100%;object-fit:cover"> -->
+          ICML 2026
+        </div>
+        <div class="pub-content">
+          <div class="pub-title">[Title withheld — results pending]</div>
+          <div class="pub-authors"><strong>Zhang Qian</strong> et al.</div>
+          <div class="pub-venue">ICML 2026</div>
+          <div class="pub-badges">
+            <span class="badge badge-review">Under Review</span>
+          </div>
+          <div style="font-size:0.8rem;color:var(--text-muted);font-family:var(--sans);font-weight:300;margin-top:0.1rem;">
+            Details will be updated upon acceptance.
           </div>
         </div>
       </div>
+
+      <!-- CnPBERT -->
+      <div class="pub-item reveal">
+        <div class="pub-thumb" style="background:linear-gradient(135deg,var(--bg-card),var(--bg));">
+          <!-- <img src="images/cnpbert.png" style="width:100%;height:100%;object-fit:cover"> -->
+          CnPBERT
+        </div>
+        <div class="pub-content">
+          <div class="pub-title">CnPBERT: Facilitating Chinese Online Petition Classification through Domain-Specific Pretraining</div>
+          <div class="pub-authors"><strong>Zhang Qian</strong> et al.</div>
+          <div class="pub-venue">BDEE 2025</div>
+          <div class="pub-badges">
+            <span class="badge badge-inprint">In Print</span>
+          </div>
+          <div class="pub-links">
+            <a href="#">PDF</a>
+            <a href="#">BibTeX</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="sec-label">Projects</div>
+    <div class="projects-grid">
+
+      <!--
+      PROJECT CARD TEMPLATE — copy this block for each project:
+
+      <div class="project-card reveal">
+        <div class="project-thumb">
+          PROJECT NAME
+          (or: <img src="images/proj.png" style="width:100%;height:100%;object-fit:cover">)
+        </div>
+        <div class="project-body">
+          <div class="project-title">Project Title</div>
+          <div class="project-desc">One or two sentence description.</div>
+          <div class="project-tech">Python · PyTorch · React</div>
+          <div class="project-links">
+            <a href="#">Code</a>
+            <a href="#">Demo</a>
+          </div>
+        </div>
+      </div>
+      -->
+
+      <!-- Placeholders — replace with your projects -->
+      <div class="project-card" style="opacity:0.4;pointer-events:none;">
+        <div class="project-thumb">Project 1</div>
+        <div class="project-body">
+          <div class="project-title">Your Project</div>
+          <div class="project-desc">Tell me your projects and I'll fill these in!</div>
+          <div class="project-tech">Tech · Stack</div>
+        </div>
+      </div>
+      <div class="project-card" style="opacity:0.4;pointer-events:none;">
+        <div class="project-thumb">Project 2</div>
+        <div class="project-body">
+          <div class="project-title">Your Project</div>
+          <div class="project-desc">Tell me your projects and I'll fill these in!</div>
+          <div class="project-tech">Tech · Stack</div>
+        </div>
+      </div>
+      <div class="project-card" style="opacity:0.4;pointer-events:none;">
+        <div class="project-thumb">Project 3</div>
+        <div class="project-body">
+          <div class="project-title">Your Project</div>
+          <div class="project-desc">Tell me your projects and I'll fill these in!</div>
+          <div class="project-tech">Tech · Stack</div>
+        </div>
+      </div>
+
     </div>
   </section>
 
   <!-- AWARDS -->
   <section id="awards">
-    <div class="wrapper">
-      <div class="sec-label">Awards &amp; Honors</div>
-      <ul class="awards-list reveal">
-        <li class="award-item">
-          <span class="award-year">2022–</span>
-          <span class="award-name">
-            Full Tuition Waiver
-            <em>Ritsumeikan University</em>
-          </span>
-        </li>
-        <li class="award-item">
-          <span class="award-year">2023</span>
-          <span class="award-name">
-            Saionji Memorial Scholarship
-            <em>Academically Outstanding Students Category</em>
-          </span>
-        </li>
-        <li class="award-item">
-          <span class="award-year">2024–26</span>
-          <span class="award-name">
-            Fuji Seal Foundation Scholarship
-            <em>One of only seven international students selected</em>
-          </span>
-        </li>
-        <li class="award-item">
-          <span class="award-year">2025</span>
-          <span class="award-name">
-            Saionji Memorial Scholarship
-            <em>Academically Outstanding Students Category</em>
-          </span>
-        </li>
-        <li class="award-item">
-          <span class="award-year">2025</span>
-          <span class="award-name">
-            Athlete and Creator Development Scholarship
-            <em>Ritsumeikan University</em>
-          </span>
-        </li>
-      </ul>
+    <div class="sec-label">Awards &amp; Honors</div>
+    <div class="award-list reveal">
+      <div class="award-item">
+        <div class="award-year">2022–present</div>
+        <div><div class="award-name">Full Tuition Waiver</div><div class="award-sub">Ritsumeikan University</div></div>
+      </div>
+      <div class="award-item">
+        <div class="award-year">2023</div>
+        <div><div class="award-name">Saionji Memorial Scholarship</div><div class="award-sub">Academically Outstanding Students Category</div></div>
+      </div>
+      <div class="award-item">
+        <div class="award-year">2024–2026</div>
+        <div><div class="award-name">Fuji Seal Foundation Scholarship</div><div class="award-sub">One of only seven international students selected</div></div>
+      </div>
+      <div class="award-item">
+        <div class="award-year">2025</div>
+        <div><div class="award-name">Saionji Memorial Scholarship</div><div class="award-sub">Academically Outstanding Students Category</div></div>
+      </div>
+      <div class="award-item">
+        <div class="award-year">2025</div>
+        <div><div class="award-name">Athlete and Creator Development Scholarship</div><div class="award-sub">Ritsumeikan University</div></div>
+      </div>
     </div>
   </section>
 
   <!-- SKILLS -->
   <section id="skills">
-    <div class="wrapper">
-      <div class="sec-label">Technical Skills</div>
-      <div class="reveal">
-        <div class="skill-group">
-          <div class="skill-group-label">Languages</div>
-          <div class="tags">
-            <span class="tag">Python</span>
-            <span class="tag">Java</span>
-            <span class="tag">C</span>
-            <span class="tag">C++</span>
-            <span class="tag">SQL</span>
-            <span class="tag">HTML5</span>
-            <span class="tag">CSS3</span>
-            <span class="tag">JavaScript</span>
-            <span class="tag">React</span>
-          </div>
+    <div class="sec-label">Skills</div>
+    <div class="skills-grid reveal">
+      <div class="skill-row">
+        <div class="skill-label">Languages</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span><span class="skill-tag">Java</span>
+          <span class="skill-tag">C</span><span class="skill-tag">C++</span>
+          <span class="skill-tag">SQL</span><span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">HTML5</span><span class="skill-tag">CSS3</span>
+          <span class="skill-tag">React</span>
         </div>
-        <div class="skill-group">
-          <div class="skill-group-label">Frameworks &amp; Tools</div>
-          <div class="tags">
-            <span class="tag">PyTorch</span>
-            <span class="tag">TensorFlow</span>
-            <span class="tag">Scikit-learn</span>
-          </div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-label">Frameworks</div>
+        <div class="skill-tags">
+          <span class="skill-tag">PyTorch</span>
+          <span class="skill-tag">TensorFlow</span>
+          <span class="skill-tag">Scikit-learn</span>
         </div>
-        <div class="skill-group">
-          <div class="skill-group-label">Databases</div>
-          <div class="tags">
-            <span class="tag">MySQL</span>
-            <span class="tag">SQLite</span>
-          </div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-label">Databases</div>
+        <div class="skill-tags">
+          <span class="skill-tag">MySQL</span>
+          <span class="skill-tag">SQLite</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- BEYOND -->
-  <section id="beyond">
-    <div class="wrapper">
-      <div class="sec-label">Beyond Research</div>
-      <div class="quote-block reveal">
-        Outside machine learning, I write quiet pieces of music, take still photographs,
-        and travel to places that change how I see light and shape.
-        I keep a small archive of these creative experiments on Bilibili.
-      </div>
-      <a class="bilibili-link reveal" href="https://bilibili.com" target="_blank" rel="noopener">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-        View on Bilibili
-      </a>
-    </div>
+  <!-- CV -->
+  <section id="cv">
+    <div class="sec-label">CV</div>
+    <p style="font-family:var(--sans);font-weight:300;font-size:0.9rem;">
+      Download my full curriculum vitae: <a href="#">CV.pdf</a>
+    </p>
   </section>
 
-  <!-- FOOTER -->
-  <div class="wrapper">
-    <footer>
-      <span>Zhang Qian (Josie) &nbsp;·&nbsp; Ritsumeikan University &nbsp;/&nbsp; CUHK-Shenzhen</span>
-      <span>© 2025</span>
-    </footer>
-  </div>
+</div><!-- .page -->
 
-  <script>
-    // Scroll reveal
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach((e, i) => {
-        if (e.isIntersecting) {
-          setTimeout(() => e.target.classList.add('visible'), i * 60);
-          observer.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.08 });
-    reveals.forEach(el => observer.observe(el));
-  </script>
+<div style="max-width:960px;margin:0 auto;padding:0 1.5rem;">
+  <footer>
+    <span>Zhang Qian (Josie) · UTokyo CV Group · 2026</span>
+    <span>Design inspired by <a href="https://alshedivat.github.io/al-folio/" target="_blank">al-folio</a></span>
+  </footer>
+</div>
+
+<script>
+  /* ── theme toggle ── */
+  const toggle = document.getElementById('theme-toggle');
+  const root   = document.documentElement;
+  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    root.setAttribute('data-theme', 'dark');
+    toggle.textContent = '☽';
+  }
+  toggle.addEventListener('click', () => {
+    const dark = root.getAttribute('data-theme') === 'dark';
+    root.setAttribute('data-theme', dark ? 'light' : 'dark');
+    toggle.textContent = dark ? '☀︎' : '☽';
+  });
+
+  /* ── scroll reveal ── */
+  const reveals = document.querySelectorAll('.reveal');
+  const revObs  = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 50);
+        revObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.07 });
+  reveals.forEach(el => revObs.observe(el));
+</script>
+
 </body>
 </html>
