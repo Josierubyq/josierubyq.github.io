@@ -255,14 +255,19 @@
       overflow: hidden;
       background: var(--bg-code);
       aspect-ratio: 16/9;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      position: relative;
       font-size: 0.75rem;
       color: var(--text-muted);
       letter-spacing: 0.05em;
       border: 1px solid var(--border);
       flex-shrink: 0;
+    }
+    .pub-thumb img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
     .pub-content { display: flex; flex-direction: column; gap: 0.4rem; }
     .pub-title { font-size: 0.97rem; font-weight: 500; line-height: 1.45; }
@@ -321,7 +326,9 @@
       color: var(--text-muted);
       letter-spacing: 0.05em;
       border-bottom: 1px solid var(--border);
+      overflow: hidden;
     }
+    .project-thumb img { width: 100%; height: 100%; object-fit: contain; }
     .project-body { padding: 1rem; flex: 1; display: flex; flex-direction: column; gap: 0.4rem; }
     .project-title { font-weight: 500; font-size: 0.92rem; line-height: 1.4; }
     .project-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.55; flex: 1; }
@@ -408,8 +415,8 @@
     <ul class="nav-links">
       <li><a href="#about">about</a></li>
       <li><a href="#news">news</a></li>
-      <li><a href="#publications">publications</a></li>
-      <li><a href="#projects">projects</a></li>
+      <li><a href="publications.html">publications</a></li>
+      <li><a href="projects.html">projects</a></li>
       <li><a href="#awards">awards</a></li>
       <li><a href="#cv">cv</a></li>
     </ul>
@@ -454,8 +461,11 @@
     <!-- Right: profile card -->
     <div class="profile-card">
       <div class="avatar-wrap">
-        <!-- Replace with: <img src="images/josie.jpg" alt="Zhang Qian" style="width:100%;height:100%;object-fit:cover"> -->
-        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="white">
+        <img id="avatar-img" src="images/josie.jpg" alt="Zhang Qian"
+             style="width:100%;height:100%;object-fit:cover;display:none"
+             onload="this.style.display='block';document.getElementById('avatar-placeholder').style.display='none'"
+             onerror="this.style.display='none'">
+        <svg id="avatar-placeholder" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="white">
           <circle cx="50" cy="36" r="22"/>
           <ellipse cx="50" cy="94" rx="38" ry="32"/>
         </svg>
@@ -469,11 +479,9 @@
         </div>
       </div>
       <div class="social-links">
-        <a href="mailto:your-email@g.ecc.u-tokyo.ac.jp">✉ email</a>
-        <a href="#">scholar</a>
-        <a href="#">github</a>
-        <a href="#">cv</a>
-        <a href="https://bilibili.com" target="_blank">bilibili</a>
+        <a href="mailto:zhangqian@g.ecc.u-tokyo.ac.jp">✉ email</a>
+        <a href="https://scholar.google.com/citations?hl=zh-CN&authuser=2&user=gn86xi0AAAAJ" target="_blank">scholar</a>
+        <a href="https://github.com/Josierubyq" target="_blank">github</a>
       </div>
     </div>
   </div>
@@ -528,41 +536,45 @@
     <h2 class="section-title">publications</h2>
     <div class="pub-list">
 
-      <div class="pub-item highlighted reveal">
-        <div class="pub-thumb" style="background:linear-gradient(135deg,#e8f0fb,#c5d8f0);">
-          ICML 2026
+      <div class="pub-item reveal">
+        <div class="pub-thumb">
+          <img src="images/publications/maspob.jpg" alt="MasPob">
         </div>
         <div class="pub-content">
-          <div class="pub-title">[Title withheld — results pending]</div>
-          <div class="pub-authors"><strong>Zhang Qian</strong> et al.</div>
-          <div class="pub-venue">International Conference on Machine Learning (ICML), 2026</div>
+          <div class="pub-title">MASPOB: Bandit-Based Prompt Optimization for Multi-Agent Systems with Graph Neural Networks</div>
+          <div class="pub-authors">Zhi Hong*<sup>1,2</sup>, <strong>Qian Zhang*<sup>1,3</sup></strong>, Jiahang Sun<sup>1</sup>, Zhiwei Shang<sup>1</sup>, Mingze Kong<sup>1</sup>, Xiangyi Wang<sup>1</sup>, Yao Shu<sup>4†</sup>, Zhongxiang Dai<sup>1†</sup></div>
+          <div class="pub-venue">arXiv preprint, March 2026</div>
           <div class="pub-badges">
-            <span class="badge badge-review">Under Review</span>
+            <span class="badge badge-review">Preprint</span>
           </div>
-          <div style="font-size:0.82rem;color:var(--text-muted);margin-top:0.2rem;">
-            Details will be updated upon acceptance.
+          <div class="pub-links">
+            <a href="https://arxiv.org/abs/2603.02630" target="_blank">arXiv</a>
+            <a href="https://arxiv.org/pdf/2603.02630" target="_blank">PDF</a>
           </div>
         </div>
       </div>
 
       <div class="pub-item reveal">
-        <div class="pub-thumb" style="background:linear-gradient(135deg,#e0f0fa,#a8d4ec);">
-          CnPBERT
+        <div class="pub-thumb">
+          <img src="images/publications/cnpbert.jpg" alt="CnPBERT">
         </div>
         <div class="pub-content">
           <div class="pub-title">CnPBERT: Facilitating Chinese Online Petition Classification through Domain-Specific Pretraining</div>
-          <div class="pub-authors"><strong>Zhang Qian</strong> et al.</div>
+          <div class="pub-authors"><strong>Zhang Qian</strong>, Kovacs M., Kryssanov V., Serdült U.</div>
           <div class="pub-venue">BDEE 2025</div>
           <div class="pub-badges">
             <span class="badge badge-inprint">In Print</span>
           </div>
           <div class="pub-links">
-            <a href="#">PDF</a>
+            <a href="https://ieeexplore.ieee.org/document/11270057" target="_blank">IEEE</a>
             <a href="#">BibTeX</a>
           </div>
         </div>
       </div>
 
+    </div>
+    <div style="margin-top:1.2rem;text-align:right;">
+      <a href="publications.html" style="font-size:0.85rem;color:var(--text-muted);">View all publications →</a>
     </div>
   </section>
 
@@ -590,31 +602,43 @@
       </div>
       -->
 
-      <div class="project-card" style="opacity:0.4;pointer-events:none;">
-        <div class="project-thumb">Project 1</div>
+      <div class="project-card">
+        <div class="project-thumb"><img src="images/projects/fashion.jpg" alt="Fashion AI"></div>
         <div class="project-body">
-          <div class="project-title">Your Project</div>
-          <div class="project-desc">Tell me your projects and I'll fill these in!</div>
-          <div class="project-tech">Tech · Stack</div>
+          <div class="project-title">Fashion Body Shape Classification &amp; Image Generation</div>
+          <div class="project-desc">Classified 14,000+ fashion images with VGG/ResNet/Inception and generated body-shape-conditioned fashion images via Stable Diffusion.</div>
+          <div class="project-tech">Python · PyTorch · Stable Diffusion</div>
+          <div class="project-links">
+            <a href="https://github.com/Josierubyq/Femail-body-shape-classification" target="_blank">GitHub</a>
+          </div>
         </div>
       </div>
-      <div class="project-card" style="opacity:0.4;pointer-events:none;">
-        <div class="project-thumb">Project 2</div>
+      <div class="project-card">
+        <div class="project-thumb"><img src="images/projects/brats.jpg" alt="BraTS"></div>
         <div class="project-body">
-          <div class="project-title">Your Project</div>
-          <div class="project-desc">Tell me your projects and I'll fill these in!</div>
-          <div class="project-tech">Tech · Stack</div>
+          <div class="project-title">BraTS Medical Image Segmentation</div>
+          <div class="project-desc">Automatic brain tumor segmentation on the BraTS dataset using nnUNet, achieving competitive performance across tumor sub-region categories.</div>
+          <div class="project-tech">Python · PyTorch · nnUNet</div>
+          <div class="project-links">
+            <a href="https://github.com/Josierubyq/nnUNet-BraTS" target="_blank">GitHub</a>
+          </div>
         </div>
       </div>
-      <div class="project-card" style="opacity:0.4;pointer-events:none;">
-        <div class="project-thumb">Project 3</div>
+      <div class="project-card">
+        <div class="project-thumb"><img src="images/projects/literature.jpg" alt="Literature Classification"></div>
         <div class="project-body">
-          <div class="project-title">Your Project</div>
-          <div class="project-desc">Tell me your projects and I'll fill these in!</div>
-          <div class="project-tech">Tech · Stack</div>
+          <div class="project-title">Scientific Literature Automatic Classification</div>
+          <div class="project-desc">Classified 900+ paper abstracts using BERT and Logistic Regression with K-fold CV. BERT accuracy: 0.997 / F1: 0.997.</div>
+          <div class="project-tech">Python · BERT · Scikit-learn</div>
+          <div class="project-links">
+            <a href="https://github.com/Josierubyq/Scientific_literature_classification" target="_blank">GitHub</a>
+          </div>
         </div>
       </div>
 
+    </div>
+    <div style="margin-top:1.2rem;text-align:right;">
+      <a href="projects.html" style="font-size:0.85rem;color:var(--text-muted);">View all projects →</a>
     </div>
   </section>
 
