@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Publications – Zhang Qian</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;700&family=Roboto:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg:        #ffffff;
+      --bg-card:   #f8f9fa;
+      --bg-code:   #f1f3f4;
+      --text:      #212529;
+      --text-muted:#6c757d;
+      --border:    #dee2e6;
+      --nav-bg:    #ffffff;
+      --nav-text:  #6c757d;
+      --nav-hover: #212529;
+      --accent:    #4a90d9;
+      --accent-dk: #2c6fad;
+      --link:      #4a90d9;
+      --link-hover:#1a5276;
+      --badge-rv:  #f0ad4e;
+      --badge-in:  #d9534f;
+      --shadow:    0 2px 8px rgba(0,0,0,0.08);
+      --radius:    6px;
+    }
+    [data-theme="dark"] {
+      --bg:        #1a1a2e;
+      --bg-card:   #16213e;
+      --bg-code:   #0f3460;
+      --text:      #e0e0e0;
+      --text-muted:#9e9e9e;
+      --border:    #2d3748;
+      --nav-bg:    #1a1a2e;
+      --nav-text:  #9e9e9e;
+      --nav-hover: #e0e0e0;
+      --accent:    #63b3ed;
+      --accent-dk: #90cdf4;
+      --link:      #63b3ed;
+      --link-hover:#bee3f8;
+      --badge-rv:  #d4a017;
+      --badge-in:  #c0392b;
+      --shadow:    0 2px 12px rgba(0,0,0,0.4);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 15px; }
+    body {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 300;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      transition: background 0.3s, color 0.3s;
+    }
+    a { color: var(--link); text-decoration: none; transition: color 0.15s; }
+    a:hover { color: var(--link-hover); }
+    strong { font-weight: 500; }
+    p { margin-bottom: 0.9em; }
+    p:last-child { margin-bottom: 0; }
+
+    nav#navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: var(--nav-bg);
+      border-bottom: 1px solid var(--border);
+      height: 56px;
+      display: flex;
+      align-items: center;
+      transition: background 0.3s;
+    }
+    .nav-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+    .nav-brand {
+      font-family: 'Roboto Slab', serif;
+      font-weight: 400;
+      font-size: 1.05rem;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+    }
+    .nav-brand:hover { color: var(--accent); text-decoration: none; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--nav-text);
+      font-size: 0.82rem;
+      font-weight: 400;
+      padding: 0.35rem 0.75rem;
+      border-radius: 4px;
+      letter-spacing: 0.03em;
+      transition: color 0.15s, background 0.15s;
+    }
+    .nav-links a:hover { color: var(--nav-hover); background: var(--bg-card); }
+    .nav-links a.active { color: var(--accent); font-weight: 500; }
+    #theme-toggle {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 0.3rem 0.55rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      transition: border-color 0.2s, color 0.2s;
+      margin-left: 0.5rem;
+      line-height: 1;
+    }
+    #theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+
+    .page {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    .page-header {
+      margin-bottom: 2.5rem;
+    }
+    .page-header h1 {
+      font-family: 'Roboto Slab', serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+      font-weight: 300;
+      margin-bottom: 0.5rem;
+    }
+    .page-header p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* filter tabs */
+    .filter-bar {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .filter-btn {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 0.25em 0.9em;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+    .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .filter-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+    .pub-list { display: flex; flex-direction: column; }
+    .pub-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 1.4rem;
+      padding: 1.4rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .pub-item:last-child { border-bottom: none; }
+    .pub-item.highlighted {
+      background: #fffde7;
+      border-radius: var(--radius);
+      padding: 1.2rem 1rem;
+      margin: 0 -1rem;
+      border-bottom: none;
+    }
+    [data-theme="dark"] .pub-item.highlighted { background: #1a1a00; }
+
+    .pub-thumb {
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--bg-code);
+      aspect-ratio: 16/9;
+      position: relative;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .pub-thumb img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .pub-content { display: flex; flex-direction: column; gap: 0.4rem; }
+    .pub-title { font-size: 0.97rem; font-weight: 500; line-height: 1.45; }
+    .pub-authors { font-size: 0.84rem; color: var(--text-muted); }
+    .pub-authors strong { color: var(--text); font-weight: 500; }
+    .pub-venue { font-size: 0.82rem; font-style: italic; color: var(--text-muted); }
+    .pub-abstract {
+      font-size: 0.83rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-top: 0.2rem;
+    }
+    .pub-badges { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.2rem; }
+    .badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      padding: 0.18em 0.6em;
+      border-radius: 3px;
+      color: #fff;
+    }
+    .badge-review  { background: var(--badge-rv); }
+    .badge-inprint { background: var(--badge-in); }
+    .badge-conf    { background: #5a8f3c; }
+    .pub-links { display: flex; gap: 0.45rem; flex-wrap: wrap; margin-top: 0.25rem; }
+    .pub-links a {
+      font-size: 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 0.1em 0.55em;
+      color: var(--text-muted);
+      transition: all 0.15s;
+    }
+    .pub-links a:hover { border-color: var(--accent); color: var(--accent); }
+
+    footer {
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      padding: 2rem 0 1rem;
+      border-top: 1px solid var(--border);
+      margin-top: 1rem;
+    }
+    footer a { color: var(--text-muted); }
+    footer a:hover { color: var(--accent); }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 680px) {
+      .pub-item { grid-template-columns: 1fr; }
+      .pub-thumb { max-width: 260px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav id="navbar">
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">Zhang Qian</a>
+    <ul class="nav-links">
+      <li><a href="index.html#about">about</a></li>
+      <li><a href="index.html#news">news</a></li>
+      <li><a href="publications.html" class="active">publications</a></li>
+      <li><a href="projects.html">projects</a></li>
+      <li><a href="index.html#awards">awards</a></li>
+      <li><a href="index.html#cv">cv</a></li>
+    </ul>
+    <button id="theme-toggle" aria-label="toggle theme">☀︎</button>
+  </div>
+</nav>
+
+<div class="page">
+
+  <div class="page-header">
+    <h1>Publications</h1>
+    <p>* indicates equal contribution</p>
+  </div>
+
+  <!-- Filter tabs — add/remove tags matching data-tag on pub-items -->
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="ml">Machine Learning</button>
+    <button class="filter-btn" data-filter="nlp">NLP</button>
+    <button class="filter-btn" data-filter="cv">Computer Vision</button>
+  </div>
+
+  <div class="pub-list" id="pub-list">
+
+    <!-- ── MasPob ── -->
+    <div class="pub-item reveal" data-tags="ml nlp">
+      <div class="pub-thumb">
+        <img src="images/publications/maspob.jpg" alt="MasPob">
+      </div>
+      <div class="pub-content">
+        <div class="pub-title">MASPOB: Bandit-Based Prompt Optimization for Multi-Agent Systems with Graph Neural Networks</div>
+        <div class="pub-authors">Zhi Hong*<sup>1,2</sup>, <strong>Qian Zhang*<sup>1,3</sup></strong>, Jiahang Sun<sup>1</sup>, Zhiwei Shang<sup>1</sup>, Mingze Kong<sup>1</sup>, Xiangyi Wang<sup>1</sup>, Yao Shu<sup>4†</sup>, Zhongxiang Dai<sup>1†</sup></div>
+        <div class="pub-venue">arXiv preprint, March 2026</div>
+        <div class="pub-abstract">
+          We address prompt optimization for LLM-powered multi-agent systems, tackling sample inefficiency, topology-induced prompt coupling, and combinatorial search explosion. MASPOB combines UCB-based bandits with Graph Neural Networks to capture structural dependencies, reducing search complexity from exponential to linear scale.
+        </div>
+        <div class="pub-badges">
+          <span class="badge badge-review">Preprint</span>
+        </div>
+        <div class="pub-links">
+          <a href="https://arxiv.org/abs/2603.02630" target="_blank">arXiv</a>
+          <a href="https://arxiv.org/pdf/2603.02630" target="_blank">PDF</a>
+          <a href="#">BibTeX</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CnPBERT ── -->
+    <div class="pub-item reveal" data-tags="nlp ml">
+      <div class="pub-thumb">
+        <img src="images/publications/cnpbert.jpg" alt="CnPBERT">
+      </div>
+      <div class="pub-content">
+        <div class="pub-title">CnPBERT: Facilitating Chinese Online Petition Classification through Domain-Specific Pretraining</div>
+        <div class="pub-authors"><strong>Zhang Qian</strong>, Kovacs M., Kryssanov V., Serdült U.</div>
+        <div class="pub-venue">Big Data and e-Government (BDEE), 2025</div>
+        <div class="pub-abstract">
+          We present CnPBERT, a domain-adapted BERT model for classifying Chinese online petitions through domain-specific pretraining.
+        </div>
+        <div class="pub-badges">
+          <span class="badge badge-conf">Conference</span>
+          <span class="badge badge-inprint">In Print</span>
+        </div>
+        <div class="pub-links">
+          <a href="https://ieeexplore.ieee.org/document/11270057" target="_blank">IEEE</a>
+          <a href="#">BibTeX</a>
+        </div>
+      </div>
+    </div>
+
+    <!--
+    ── ADD MORE PAPERS BELOW ──
+
+    <div class="pub-item reveal" data-tags="cv ml">
+      <div class="pub-thumb">
+        <img src="images/pub_yourpaper.jpg" alt="Paper teaser">
+      </div>
+      <div class="pub-content">
+        <div class="pub-title">Your Paper Title Here</div>
+        <div class="pub-authors"><strong>Zhang Qian</strong>, Co-author 1, Co-author 2</div>
+        <div class="pub-venue">Conference Name (CONF), Year</div>
+        <div class="pub-abstract">Short abstract or description.</div>
+        <div class="pub-badges">
+          <span class="badge badge-conf">Conference</span>
+        </div>
+        <div class="pub-links">
+          <a href="#">PDF</a>
+          <a href="#">Code</a>
+          <a href="#">BibTeX</a>
+        </div>
+      </div>
+    </div>
+    -->
+
+  </div>
+</div>
+
+<footer>
+  © 2026 Zhang Qian (Josie) &nbsp;·&nbsp;
+  Design inspired by <a href="https://alshedivat.github.io/al-folio/" target="_blank">al-folio</a>
+</footer>
+
+<script>
+  const toggle = document.getElementById('theme-toggle');
+  const root   = document.documentElement;
+  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    root.setAttribute('data-theme', 'dark');
+    toggle.textContent = '☽';
+  }
+  toggle.addEventListener('click', () => {
+    const dark = root.getAttribute('data-theme') === 'dark';
+    root.setAttribute('data-theme', dark ? 'light' : 'dark');
+    toggle.textContent = dark ? '☀︎' : '☽';
+  });
+
+  /* filter */
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('.pub-item').forEach(item => {
+        const tags = item.dataset.tags || '';
+        item.style.display = (filter === 'all' || tags.includes(filter)) ? '' : 'none';
+      });
+    });
+  });
+
+  /* scroll reveal */
+  const revObs = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 50);
+        revObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.07 });
+  document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
+</script>
+
+</body>
+</html>

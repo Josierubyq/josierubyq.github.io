@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects – Zhang Qian</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;700&family=Roboto:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg:        #ffffff;
+      --bg-card:   #f8f9fa;
+      --bg-code:   #f1f3f4;
+      --text:      #212529;
+      --text-muted:#6c757d;
+      --border:    #dee2e6;
+      --nav-bg:    #ffffff;
+      --nav-text:  #6c757d;
+      --nav-hover: #212529;
+      --accent:    #4a90d9;
+      --accent-dk: #2c6fad;
+      --link:      #4a90d9;
+      --link-hover:#1a5276;
+      --shadow:    0 2px 8px rgba(0,0,0,0.08);
+      --radius:    6px;
+    }
+    [data-theme="dark"] {
+      --bg:        #1a1a2e;
+      --bg-card:   #16213e;
+      --bg-code:   #0f3460;
+      --text:      #e0e0e0;
+      --text-muted:#9e9e9e;
+      --border:    #2d3748;
+      --nav-bg:    #1a1a2e;
+      --nav-text:  #9e9e9e;
+      --nav-hover: #e0e0e0;
+      --accent:    #63b3ed;
+      --accent-dk: #90cdf4;
+      --link:      #63b3ed;
+      --link-hover:#bee3f8;
+      --shadow:    0 2px 12px rgba(0,0,0,0.4);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 15px; }
+    body {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 300;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      transition: background 0.3s, color 0.3s;
+    }
+    a { color: var(--link); text-decoration: none; transition: color 0.15s; }
+    a:hover { color: var(--link-hover); }
+    strong { font-weight: 500; }
+
+    nav#navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: var(--nav-bg);
+      border-bottom: 1px solid var(--border);
+      height: 56px;
+      display: flex;
+      align-items: center;
+      transition: background 0.3s;
+    }
+    .nav-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+    .nav-brand {
+      font-family: 'Roboto Slab', serif;
+      font-weight: 400;
+      font-size: 1.05rem;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+    }
+    .nav-brand:hover { color: var(--accent); text-decoration: none; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--nav-text);
+      font-size: 0.82rem;
+      font-weight: 400;
+      padding: 0.35rem 0.75rem;
+      border-radius: 4px;
+      letter-spacing: 0.03em;
+      transition: color 0.15s, background 0.15s;
+    }
+    .nav-links a:hover { color: var(--nav-hover); background: var(--bg-card); }
+    .nav-links a.active { color: var(--accent); font-weight: 500; }
+    #theme-toggle {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 0.3rem 0.55rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      transition: border-color 0.2s, color 0.2s;
+      margin-left: 0.5rem;
+      line-height: 1;
+    }
+    #theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+
+    .page {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    .page-header {
+      margin-bottom: 2.5rem;
+    }
+    .page-header h1 {
+      font-family: 'Roboto Slab', serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+      font-weight: 300;
+      margin-bottom: 0.5rem;
+    }
+    .page-header p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* filter bar */
+    .filter-bar {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .filter-btn {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 0.25em 0.9em;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+    .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .filter-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.4rem;
+    }
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .project-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+    .project-thumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: var(--bg-code);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .project-thumb img { width: 100%; height: 100%; object-fit: contain; }
+    .project-body { padding: 1rem; flex: 1; display: flex; flex-direction: column; gap: 0.4rem; }
+    .project-title { font-weight: 500; font-size: 0.95rem; line-height: 1.4; }
+    .project-desc { font-size: 0.83rem; color: var(--text-muted); line-height: 1.55; flex: 1; }
+    .project-tech { font-size: 0.73rem; color: var(--text-muted); font-style: italic; }
+    .project-links { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.5rem; }
+    .project-links a {
+      font-size: 0.73rem;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 0.15em 0.55em;
+      color: var(--text-muted);
+      transition: all 0.15s;
+    }
+    .project-links a:hover { border-color: var(--accent); color: var(--accent); }
+    .project-status {
+      display: inline-block;
+      font-size: 0.67rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      padding: 0.15em 0.55em;
+      border-radius: 3px;
+      background: var(--accent);
+      color: #fff;
+      margin-top: 0.2rem;
+      align-self: flex-start;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      padding: 2rem 0 1rem;
+      border-top: 1px solid var(--border);
+      margin-top: 1rem;
+    }
+    footer a { color: var(--text-muted); }
+    footer a:hover { color: var(--accent); }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 600px) {
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav id="navbar">
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">Zhang Qian</a>
+    <ul class="nav-links">
+      <li><a href="index.html#about">about</a></li>
+      <li><a href="index.html#news">news</a></li>
+      <li><a href="publications.html">publications</a></li>
+      <li><a href="projects.html" class="active">projects</a></li>
+      <li><a href="index.html#awards">awards</a></li>
+      <li><a href="index.html#cv">cv</a></li>
+    </ul>
+    <button id="theme-toggle" aria-label="toggle theme">☀︎</button>
+  </div>
+</nav>
+
+<div class="page">
+
+  <div class="page-header">
+    <h1>Projects</h1>
+    <p>Research projects, course work, and side experiments.</p>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="research">Research</button>
+    <button class="filter-btn" data-filter="nlp">NLP</button>
+    <button class="filter-btn" data-filter="cv">Computer Vision</button>
+    <button class="filter-btn" data-filter="game">Game / App</button>
+  </div>
+
+  <div class="projects-grid" id="projects-grid">
+
+
+
+    <div class="project-card reveal" data-tags="cv research">
+      <div class="project-thumb"><img src="images/projects/fashion.jpg" alt="Fashion AI"></div>
+      <div class="project-body">
+        <div class="project-title">Fashion Body Shape Classification &amp; Image Generation</div>
+        <div class="project-desc">Collected and classified 14,000+ fashion images. Trained body shape classifiers (VGG, ResNet, Inception) and generated fashion images conditioned on body shape via Stable Diffusion.</div>
+        <div class="project-tech">Python · PyTorch · Stable Diffusion</div>
+        <div class="project-links">
+          <a href="https://github.com/Josierubyq/Femail-body-shape-classification" target="_blank">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card reveal" data-tags="cv research">
+      <div class="project-thumb"><img src="images/projects/brats.jpg" alt="BraTS"></div>
+      <div class="project-body">
+        <div class="project-title">BraTS Medical Image Segmentation</div>
+        <div class="project-desc">Automatic brain tumor segmentation on the BraTS dataset using nnUNet, achieving competitive performance across tumor sub-region categories.</div>
+        <div class="project-tech">Python · PyTorch · nnUNet</div>
+        <div class="project-links">
+          <a href="https://github.com/Josierubyq/nnUNet-BraTS" target="_blank">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card reveal" data-tags="nlp research">
+      <div class="project-thumb"><img src="images/projects/literature.jpg" alt="Literature Classification"></div>
+      <div class="project-body">
+        <div class="project-title">Scientific Literature Automatic Classification</div>
+        <div class="project-desc">Automated classification of 900+ paper abstracts across disciplines using BERT and Logistic Regression with TF-IDF and K-fold CV. BERT accuracy: 0.997 / F1: 0.997.</div>
+        <div class="project-tech">Python · BERT · Scikit-learn</div>
+        <div class="project-links">
+          <a href="https://github.com/Josierubyq/Scientific_literature_classification" target="_blank">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card reveal" data-tags="nlp research">
+      <div class="project-thumb"><img src="images/projects/gender.jpg" alt="Gender Bias Detection"></div>
+      <div class="project-body">
+        <div class="project-title">Automated Detection of Gender Discriminatory Remarks</div>
+        <div class="project-desc">Detected sexist comments on Twitter with BERT and Logistic Regression. Preprocessing pipeline including emoji conversion, lemmatization, and TF-IDF. BERT ROC-AUC: 0.914.</div>
+        <div class="project-tech">Python · BERT · NLP</div>
+        <div class="project-links">
+          <a href="https://github.com/Josierubyq/Automated-Detection-of-Gender-Discriminatory-Remarks-Online" target="_blank">GitHub</a>
+        </div>
+      </div>
+    </div>
+<!-- 
+    <div class="project-card reveal" data-tags="nlp systems">
+      <div class="project-thumb" style="background:linear-gradient(135deg,#e8eaf6,#9fa8da);">Message Board NLP</div>
+      <div class="project-body">
+        <div class="project-title">China Leaders Message Board Analysis System</div>
+        <div class="project-desc">Automated classification and similarity system for large volumes of citizen messages. Used LDA for topic modeling and time series analysis of urban construction trends.</div>
+        <div class="project-tech">Python · NLP · LDA</div>
+        <div class="project-links">
+          <a href="#" target="_blank">GitHub</a>
+        </div>
+      </div>
+    </div> -->
+
+    <div class="project-card reveal" data-tags="systems research">
+      <div class="project-thumb"><img src="images/projects/forex.jpg" alt="Forex Prediction"></div>
+      <div class="project-body">
+        <div class="project-title">JPY/USD Exchange Rate Prediction System</div>
+        <div class="project-desc">Time series prediction of JPY/USD exchange rates using ARIMA, CNN, MLP, and LSTM. Benchmarked multiple models across datasets to improve prediction accuracy.</div>
+        <div class="project-tech">Python · ARIMA · CNN · LSTM</div>
+        <div class="project-links">
+          <a href="https://github.com/Josierubyq/Japanese-Yen-Exchange-Rate-Forecast" target="_blank">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="project-card reveal" data-tags="cv systems">
+      <div class="project-thumb" style="background:linear-gradient(135deg,#fbe9e7,#ffab91);">Anomaly Detection</div>
+      <div class="project-body">
+        <div class="project-title">Real-Time Anomalous Behavior Detection System</div>
+        <div class="project-desc">Anomaly detection for public safety surveillance using InceptionV3 and CNN-BiLSTM deep learning models. Built with TensorFlow, OpenCV, and Keras.</div>
+        <div class="project-tech">Python · TensorFlow · OpenCV · Keras</div>
+        <div class="project-links">
+          <a href="#" target="_blank">GitHub</a>
+        </div>
+      </div>
+    </div> -->
+
+    <div class="project-card reveal" data-tags="cv systems">
+      <div class="project-thumb"><img src="images/projects/multiprojector.jpg" alt="Multi-Projector"></div>
+      <div class="project-body">
+        <div class="project-title">Multi-Projector Image Processing System</div>
+        <div class="project-desc">Merges outputs of multiple projectors to resolve brightness inconsistencies in overlapping regions using edge detection and alpha blending.</div>
+        <div class="project-tech">Python · OpenCV</div>
+        <div class="project-links">
+          <a href="http://www.dh.is.ritsumei.ac.jp/redmine/projects/g22-2023/wiki" target="_blank">Project Wiki</a>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="project-card reveal" data-tags="game">
+      <div class="project-thumb"><video autoplay loop muted playsinline style="width:100%;height:100%;object-fit:contain;"><source src="images/projects/wizard.mp4" type="video/mp4"></video></div>
+      <div class="project-body">
+        <div class="project-title">Wizard Blast 3D Multiplayer Educational Game</div>
+        <div class="project-desc">Educational multiplayer game combining programming challenges with magical battles. Led team development and testing as project manager.</div>
+        <div class="project-tech">React</div>
+        <div class="project-links">
+          <a href="https://github.com/Josierubyq/react-shooting-game" target="_blank">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card reveal" data-tags="systems game">
+      <div class="project-thumb"><video autoplay loop muted playsinline style="width:100%;height:100%;object-fit:contain;"><source src="images/projects/foodtruck.mp4" type="video/mp4"></video></div>
+      <div class="project-body">
+        <div class="project-title">Campus Food Truck Information Website</div>
+        <div class="project-desc">Web platform integrating real-time food truck locations and user reviews. Designed in Figma with API integration for real-time data updates.</div>
+        <div class="project-tech">Figma · HTML/CSS · REST API</div>
+        <div class="project-links">
+          <a href="https://github.com/Josierubyq/pbl4" target="_blank">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card reveal" data-tags="systems game">
+      <div class="project-thumb"><video autoplay loop muted playsinline style="width:100%;height:100%;object-fit:contain;"><source src="images/projects/kago.mp4" type="video/mp4"></video></div>
+      <div class="project-body">
+        <div class="project-title">Price Comparison iOS Application (Kago)</div>
+        <div class="project-desc">iOS app comparing prices between online retailers and brick-and-mortar stores. Integrated RESTful APIs and JSON for cross-platform product search and cart management.</div>
+        <div class="project-tech">Swift · iOS SDK · RESTful APIs</div>
+        <div class="project-links">
+          <a href="https://github.com/Josierubyq/Kago" target="_blank">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="project-card reveal" data-tags="game nlp">
+      <div class="project-thumb"><video autoplay loop muted playsinline style="width:100%;height:100%;object-fit:contain;"><source src="images/projects/maori.mp4" type="video/mp4"></video></div>
+      <div class="project-body">
+        <div class="project-title">Māori Language Learning Application</div>
+        <div class="project-desc">Language learning app with interactive courses, gamified lessons, and progress tracking. Designed in Figma with a focus on accessibility and engaging UX.</div>
+        <div class="project-tech">Figma · UX Design</div>
+        <div class="project-links">
+          <a href="#" target="_blank">GitHub</a>
+        </div>
+      </div>
+    </div> -->
+
+  </div>
+</div>
+
+<footer>
+  © 2026 Zhang Qian (Josie) &nbsp;·&nbsp;
+  Design inspired by <a href="https://alshedivat.github.io/al-folio/" target="_blank">al-folio</a>
+</footer>
+
+<script>
+  const toggle = document.getElementById('theme-toggle');
+  const root   = document.documentElement;
+  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    root.setAttribute('data-theme', 'dark');
+    toggle.textContent = '☽';
+  }
+  toggle.addEventListener('click', () => {
+    const dark = root.getAttribute('data-theme') === 'dark';
+    root.setAttribute('data-theme', dark ? 'light' : 'dark');
+    toggle.textContent = dark ? '☀︎' : '☽';
+  });
+
+  /* filter */
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('.project-card').forEach(card => {
+        const tags = card.dataset.tags || '';
+        card.style.display = (filter === 'all' || tags.includes(filter)) ? '' : 'none';
+      });
+    });
+  });
+
+  /* scroll reveal */
+  const revObs = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 60);
+        revObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.07 });
+  document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
+</script>
+
+</body>
+</html>
