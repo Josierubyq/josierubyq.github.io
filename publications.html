@@ -236,18 +236,6 @@
       color: var(--text-muted);
       transition: all 0.15s;
     }
-    .bibtex {
-      display: none;
-      margin-top: 0.5rem;
-      padding: 0.7rem 0.9rem;
-      font-size: 0.72rem;
-      line-height: 1.5;
-      background: var(--border);
-      border-radius: 4px;
-      overflow-x: auto;
-      white-space: pre;
-    }
-    .bibtex.open { display: block; }
     .pub-content { min-width: 0; }
     .pub-links a:hover { border-color: var(--accent); color: var(--accent); }
 
@@ -335,18 +323,7 @@
         </div>
         <div class="pub-links">
           <a href="https://ieeexplore.ieee.org/document/11270057" target="_blank">IEEE</a>
-          <a href="#" class="bib-toggle" data-bib="bib-cnpbert">BibTeX</a>
         </div>
-        <pre class="bibtex" id="bib-cnpbert">@inproceedings{zhang2025cnpbert,
-  title     = {CnPBERT: Facilitating Chinese Online Petition Classification through Domain-Specific Pretraining},
-  author    = {Zhang, Qian and Kovacs, Mate and Kryssanov, Victor and Serd{\"u}lt, Uwe},
-  booktitle = {2025 5th International Conference on Big Data Engineering and Education (BDEE)},
-  address   = {Luoyang, China},
-  pages     = {80--87},
-  year      = {2025},
-  publisher = {IEEE},
-  doi       = {10.1109/BDEE67464.2025.00019}
-}</pre>
       </div>
     </div>
 
@@ -405,13 +382,6 @@
     });
   });
 
-  /* bibtex toggle */
-  document.querySelectorAll('.bib-toggle').forEach(a => {
-    a.addEventListener('click', e => {
-      e.preventDefault();
-      document.getElementById(a.dataset.bib).classList.toggle('open');
-    });
-  });
   /* scroll reveal */
   const revObs = new IntersectionObserver(entries => {
     entries.forEach((e, i) => {
