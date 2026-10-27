@@ -287,6 +287,8 @@
     }
     .badge-review  { background: var(--badge-rv); }
     .badge-inprint { background: var(--badge-in); }
+    .badge-conf    { background: #5a8f3c; }
+    .badge-spot    { background: #b8860b; }
 
     .pub-links { display: flex; gap: 0.45rem; flex-wrap: wrap; margin-top: 0.25rem; }
     .pub-links a {
@@ -493,7 +495,7 @@
       <tbody>
         <tr>
           <td class="news-date">Apr 2026</td>
-          <td>Paper <em>MASPOB</em> accepted at <strong>ICML 2026</strong>. 🎉</td>
+          <td>Paper <em>MASPOB</em> accepted at <strong>ICML 2026</strong> as a <strong>Spotlight</strong>. 🎉</td>
         </tr>
         <tr>
           <td class="news-date">Apr 2026</td>
@@ -539,9 +541,10 @@
         <div class="pub-content">
           <div class="pub-title">MASPOB: Bandit-Based Prompt Optimization for Multi-Agent Systems with Graph Neural Networks</div>
           <div class="pub-authors">Zhi Hong*, <strong>Qian Zhang*</strong>, Jiahang Sun, Zhiwei Shang, Mingze Kong, Xiangyi Wang, Yao Shu, Zhongxiang Dai</div>
-          <div class="pub-venue">International Conference on Machine Learning (ICML), 2026</div>
+          <div class="pub-venue">International Conference on Machine Learning (ICML), 2026 &mdash; <strong>Spotlight</strong></div>
           <div class="pub-badges">
             <span class="badge badge-conf">Conference</span>
+            <span class="badge badge-spot">Spotlight</span>
           </div>
           <div class="pub-links">
             <a href="https://arxiv.org/abs/2603.02630" target="_blank">arXiv</a>
@@ -555,7 +558,7 @@
         </div>
         <div class="pub-content">
           <div class="pub-title">CnPBERT: Facilitating Chinese Online Petition Classification through Domain-Specific Pretraining</div>
-          <div class="pub-authors"><strong>Qian Zhang*</strong>, Mate Kovacs, Victor Kryssanov, Uwe Serdült</div>
+          <div class="pub-authors"><strong>Qian Zhang</strong>, Mate Kovacs, Victor Kryssanov, Uwe Serdült</div>
           <div class="pub-venue">International Conference on Big Data Engineering and Education (BDEE), 2025</div>
           <div class="pub-badges">
             <span class="badge badge-inprint">In Print</span>
@@ -568,7 +571,8 @@
       </div>
 
     </div>
-    <div style="margin-top:1.2rem;text-align:right;">
+    <div style="margin-top:1.2rem;display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap;">
+      <span style="font-size:0.8rem;color:var(--text-muted);">* Equal contribution</span>
       <a href="publications.html" style="font-size:0.85rem;color:var(--text-muted);">View all publications →</a>
     </div>
   </section>
