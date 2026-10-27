@@ -298,6 +298,19 @@
       color: var(--text-muted);
       transition: all 0.15s;
     }
+    .bibtex {
+      display: none;
+      margin-top: 0.5rem;
+      padding: 0.7rem 0.9rem;
+      font-size: 0.72rem;
+      line-height: 1.5;
+      background: var(--border);
+      border-radius: 4px;
+      overflow-x: auto;
+      white-space: pre;
+    }
+    .bibtex.open { display: block; }
+    .pub-content { min-width: 0; }
     .pub-links a:hover { border-color: var(--accent); color: var(--accent); }
 
     /* ── PROJECTS ── */
@@ -419,7 +432,6 @@
       <li><a href="publications.html">publications</a></li>
       <li><a href="projects.html">projects</a></li>
       <li><a href="#awards">awards</a></li>
-      <li><a href="#cv">cv</a></li>
     </ul>
     <button id="theme-toggle" aria-label="toggle theme">☀︎</button>
   </div>
@@ -455,7 +467,6 @@
         <strong>structured representations</strong>, <strong>LLM agents</strong>,
         and <strong>prompt optimization</strong>.
         Outside research, I write piano pieces, take photographs, and travel.
-        Creative archive on <a href="https://bilibili.com" target="_blank">Bilibili</a>.
       </p>
     </div>
 
@@ -481,7 +492,7 @@
       </div>
       <div class="social-links">
         <a href="mailto:zhangqian@g.ecc.u-tokyo.ac.jp">✉ email</a>
-        <a href="https://scholar.google.com/citations?hl=zh-CN&authuser=2&user=gn86xi0AAAAJ" target="_blank">scholar</a>
+        <a href="https://scholar.google.com/citations?user=gn86xi0AAAAJ" target="_blank">scholar</a>
         <a href="https://github.com/Josierubyq" target="_blank">github</a>
       </div>
     </div>
@@ -560,8 +571,18 @@
           <div class="pub-venue">International Conference on Big Data Engineering and Education (BDEE), 2025</div>
           <div class="pub-links">
             <a href="https://ieeexplore.ieee.org/document/11270057" target="_blank">IEEE</a>
-            <a href="#">BibTeX</a>
+            <a href="#" class="bib-toggle" data-bib="bib-cnpbert">BibTeX</a>
           </div>
+          <pre class="bibtex" id="bib-cnpbert">@inproceedings{zhang2025cnpbert,
+  title     = {CnPBERT: Facilitating Chinese Online Petition Classification through Domain-Specific Pretraining},
+  author    = {Zhang, Qian and Kovacs, Mate and Kryssanov, Victor and Serd{\"u}lt, Uwe},
+  booktitle = {2025 5th International Conference on Big Data Engineering and Education (BDEE)},
+  address   = {Luoyang, China},
+  pages     = {80--87},
+  year      = {2025},
+  publisher = {IEEE},
+  doi       = {10.1109/BDEE67464.2025.00019}
+}</pre>
         </div>
       </div>
 
@@ -695,11 +716,6 @@
     </div>
   </section>
 
-  <!-- CV -->
-  <section id="cv">
-    <h2 class="section-title">cv</h2>
-    <p style="font-size:0.9rem;">Download my full curriculum vitae: <a href="#">CV.pdf</a></p>
-  </section>
 
 </div>
 
@@ -722,6 +738,13 @@
     toggle.textContent = dark ? '☀︎' : '☽';
   });
 
+  /* bibtex toggle */
+  document.querySelectorAll('.bib-toggle').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      document.getElementById(a.dataset.bib).classList.toggle('open');
+    });
+  });
   /* scroll reveal */
   const revObs = new IntersectionObserver(entries => {
     entries.forEach((e, i) => {
