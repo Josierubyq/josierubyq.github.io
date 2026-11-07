@@ -404,7 +404,15 @@
       .pub-item { grid-template-columns: 1fr; }
       .pub-thumb { max-width: 260px; }
       .award-item { grid-template-columns: 80px 1fr; }
-      .nav-links li:nth-child(n+5) { display: none; }
+    }
+    /* mobile nav: brand + theme toggle on top, links in a scrollable row below */
+    @media (max-width: 680px) {
+      nav#navbar { height: auto; padding: 0.55rem 0 0.35rem; }
+      .nav-inner { flex-wrap: wrap; row-gap: 0.25rem; }
+      .nav-links { order: 3; width: 100%; overflow-x: auto; gap: 0; scrollbar-width: none; }
+      .nav-links::-webkit-scrollbar { display: none; }
+      .nav-links a { padding: 0.3rem 0.55rem; white-space: nowrap; }
+      .nav-links li:first-child a { padding-left: 0; }
     }
   </style>
 </head>
@@ -420,6 +428,7 @@
       <li><a href="publications.html">publications</a></li>
       <li><a href="projects.html">projects</a></li>
       <li><a href="#awards">awards</a></li>
+      <li><a href="life.html">life</a></li>
     </ul>
     <button id="theme-toggle" aria-label="toggle theme">☀︎</button>
   </div>
@@ -454,7 +463,7 @@
         My interests span <strong>multimodal video understanding</strong>,
         <strong>structured representations</strong>, <strong>LLM agents</strong>,
         and <strong>prompt optimization</strong>.
-        Outside research, I write piano pieces, take photographs, and travel.
+        Outside research, I write <a href="life.html">piano pieces</a>, take photographs, and travel.
       </p>
     </div>
 
