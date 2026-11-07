@@ -271,29 +271,29 @@
       margin-bottom: 0.3rem;
     }
     .life-section > p { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 0.6rem; }
-    .score-list { display: flex; flex-direction: column; }
-    .score-item {
+    .score-list {
       display: grid;
-      grid-template-columns: 140px 1fr;
-      gap: 1.3rem;
-      padding: 1.2rem 0;
-      border-bottom: 1px solid var(--border);
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 1.6rem 1.3rem;
+      margin-top: 1rem;
     }
+    a.score-item { display: flex; flex-direction: column; gap: 0.35rem; color: inherit; text-decoration: none; }
     .score-thumb {
       border-radius: var(--radius);
       overflow: hidden;
       background: #ffffff;
-      aspect-ratio: 210/297;
+      aspect-ratio: 4 / 3;
       border: 1px solid var(--border);
+      margin-bottom: 0.25rem;
+      transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
     }
     .score-thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
-    .score-content { display: flex; flex-direction: column; gap: 0.3rem; min-width: 0; }
-    .score-title { font-weight: 500; font-size: 0.98rem; }
-    .score-meta { font-size: 0.8rem; color: var(--text-muted); }
-    .score-desc { font-size: 0.86rem; }
-    .score-empty { font-size: 0.86rem; color: var(--text-muted); font-style: italic; padding: 1rem 0; }
+    a.score-item:hover .score-thumb { border-color: var(--accent); box-shadow: 0 4px 14px rgba(0,0,0,0.08); transform: translateY(-2px); }
+    a.score-item:hover .score-title { color: var(--accent); }
+    .score-title { font-weight: 500; font-size: 0.95rem; }
+    .score-meta { font-size: 0.78rem; color: var(--text-muted); }
     @media (max-width: 600px) {
-      .score-item { grid-template-columns: 96px 1fr; gap: 1rem; }
+      .score-list { grid-template-columns: 1fr 1fr; gap: 1.2rem 0.9rem; }
     }
     /* mobile nav: brand + theme toggle on top, links in a scrollable row below */
     @media (max-width: 680px) {
@@ -333,33 +333,62 @@
 
   <section class="life-section" id="piano">
     <h2>Piano</h2>
-    <p>My piano arrangements of songs I love.</p>
+    <p>My piano arrangements of songs I love. Click a score to open the PDF.</p>
 
     <div class="score-list">
 
-      <div class="score-empty">Sheet music coming soon.</div>
+      <a class="score-item reveal" href="images/life/scores/how-you-like-that.pdf" target="_blank">
+        <div class="score-thumb"><img src="images/life/scores/how-you-like-that.jpg" alt="How You Like That – first page" loading="lazy"></div>
+        <div class="score-title">How You Like That</div>
+        <div class="score-meta">BLACKPINK · 2020 · 4 pages</div>
+      </a>
+      <a class="score-item reveal" href="images/life/scores/fiesta.pdf" target="_blank">
+        <div class="score-thumb"><img src="images/life/scores/fiesta.jpg" alt="Fiesta – first page" loading="lazy"></div>
+        <div class="score-title">Fiesta</div>
+        <div class="score-meta">IZ*ONE · 2020 · 5 pages</div>
+      </a>
+      <a class="score-item reveal" href="images/life/scores/lion.pdf" target="_blank">
+        <div class="score-thumb"><img src="images/life/scores/lion.jpg" alt="LION – first page" loading="lazy"></div>
+        <div class="score-title">LION</div>
+        <div class="score-meta">(G)I-DLE · 2019 · 6 pages</div>
+      </a>
+      <a class="score-item reveal" href="images/life/scores/uh-oh.pdf" target="_blank">
+        <div class="score-thumb"><img src="images/life/scores/uh-oh.jpg" alt="UH-OH – first page" loading="lazy"></div>
+        <div class="score-title">UH-OH</div>
+        <div class="score-meta">(G)I-DLE · 2019 · 5 pages</div>
+      </a>
+      <a class="score-item reveal" href="images/life/scores/rooftop.pdf" target="_blank">
+        <div class="score-thumb"><img src="images/life/scores/rooftop.jpg" alt="Rooftop – first page" loading="lazy"></div>
+        <div class="score-title">Rooftop</div>
+        <div class="score-meta">N.Flying · 2019 · 5 pages</div>
+      </a>
+      <a class="score-item reveal" href="images/life/scores/dont-know-what-to-do.pdf" target="_blank">
+        <div class="score-thumb"><img src="images/life/scores/dont-know-what-to-do.jpg" alt="Don&#x27;t Know What To Do – first page" loading="lazy"></div>
+        <div class="score-title">Don&#x27;t Know What To Do</div>
+        <div class="score-meta">BLACKPINK · 2019 · 5 pages</div>
+      </a>
+      <a class="score-item reveal" href="images/life/scores/kill-this-love.pdf" target="_blank">
+        <div class="score-thumb"><img src="images/life/scores/kill-this-love.jpg" alt="Kill This Love – first page" loading="lazy"></div>
+        <div class="score-title">Kill This Love</div>
+        <div class="score-meta">BLACKPINK · 2019 · 5 pages</div>
+      </a>
+      <a class="score-item reveal" href="images/life/scores/violeta.pdf" target="_blank">
+        <div class="score-thumb"><img src="images/life/scores/violeta.jpg" alt="Violeta – first page" loading="lazy"></div>
+        <div class="score-title">Violeta</div>
+        <div class="score-meta">IZ*ONE · 2019 · 6 pages</div>
+      </a>
 
       <!--
-      ── SCORE TEMPLATE ──
-      1. Put the PDF in   images/life/scores/your-piece.pdf
-      2. Put a cover image (e.g. a screenshot of page 1) in   images/life/scores/your-piece.jpg
-      3. Copy the block below, fill it in, and delete the "coming soon" line above.
+      ── ADD A SCORE ──
+      1. Put the PDF in   images/life/scores/song-name.pdf
+      2. Put a picture of page 1 in   images/life/scores/song-name.jpg
+      3. Copy this block to the top of the list and fill it in:
 
-      <div class="score-item reveal">
-        <a class="score-thumb" href="images/life/scores/your-piece.pdf" target="_blank">
-          <img src="images/life/scores/your-piece.jpg" alt="Your Piece – first page">
-        </a>
-        <div class="score-content">
-          <div class="score-title">Song Title</div>
-          <div class="score-meta">Original by Artist Name · Arranged for piano by Zhang Qian</div>
-          <div class="score-meta">2026 · Solo piano · 3 pages</div>
-          <div class="score-desc">One or two sentences about the arrangement.</div>
-          <div class="pub-links">
-            <a href="images/life/scores/your-piece.pdf" target="_blank">PDF</a>
-            <a href="https://..." target="_blank">Listen</a>
-          </div>
-        </div>
-      </div>
+      <a class="score-item reveal" href="images/life/scores/song-name.pdf" target="_blank">
+        <div class="score-thumb"><img src="images/life/scores/song-name.jpg" alt="Song Title – first page" loading="lazy"></div>
+        <div class="score-title">Song Title</div>
+        <div class="score-meta">Original Artist · 2026 · 4 pages</div>
+      </a>
       -->
 
     </div>
